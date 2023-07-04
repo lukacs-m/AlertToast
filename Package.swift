@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
     name: "AlertToast",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
+        .tvOS(.v14),
+        .watchOS(.v7),
         .macOS(.v11)
     ],
     products: [
