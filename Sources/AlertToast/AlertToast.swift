@@ -459,17 +459,17 @@ public struct AlertToastModifier: ViewModifier{
             case .hud:
                 alert()
                     .overlay(
-                        GeometryReader{ geo -> AnyView in
+                        GeometryReader{ geo -> EmptyView in
                             let rect = geo.frame(in: .global)
-                            
-                            if rect.integral != alertRect.integral{
-                                
+
+                            if rect.integral != alertRect.integral {
+
                                 DispatchQueue.main.async {
-                                    
+
                                     self.alertRect = rect
                                 }
                             }
-                            return AnyView(EmptyView())
+                            return EmptyView()
                         }
                     )
                     .onTapGesture {
@@ -526,24 +526,24 @@ public struct AlertToastModifier: ViewModifier{
         case .hud:
             content
                 .overlay(
-                    GeometryReader{ geo -> AnyView in
+                    GeometryReader{ geo -> EmptyView in
                         let rect = geo.frame(in: .global)
                         
-                        if rect.integral != hostRect.integral{
+                        if rect.integral != hostRect.integral {
                             DispatchQueue.main.async {
                                 self.hostRect = rect
                             }
                         }
                         
-                        return AnyView(EmptyView())
+                        return EmptyView()
                     }
                         .overlay(ZStack{
                             main()
                                 .offset(y: offsetY)
                         }
-                                    .frame(maxWidth: screen.width, maxHeight: screen.height)
-                                    .offset(y: offset)
-                                    .animation(Animation.spring(), value: isPresenting))
+                            .frame(maxWidth: screen.width, maxHeight: screen.height)
+                            .offset(y: offset)
+                            .animation(Animation.spring(), value: isPresenting))
                 )
                 .valueChanged(value: isPresenting, onChange: { (presented) in
                     if presented{
@@ -594,7 +594,6 @@ public struct AlertToastModifier: ViewModifier{
 }
 
 ///Fileprivate View Modifier for dynamic frame when alert type is `.regular` / `.loading`
-@available(iOS 13, macOS 11, *)
 fileprivate struct WithFrameModifier: ViewModifier{
     
     var withFrame: Bool
@@ -614,7 +613,6 @@ fileprivate struct WithFrameModifier: ViewModifier{
 }
 
 ///Fileprivate View Modifier to change the alert background
-@available(iOS 13, macOS 11, *)
 fileprivate struct BackgroundModifier: ViewModifier{
     
     var color: Color?
@@ -632,7 +630,6 @@ fileprivate struct BackgroundModifier: ViewModifier{
 }
 
 ///Fileprivate View Modifier to change the text colors
-@available(iOS 13, macOS 11, *)
 fileprivate struct TextForegroundModifier: ViewModifier{
     
     var color: Color?
@@ -648,7 +645,6 @@ fileprivate struct TextForegroundModifier: ViewModifier{
     }
 }
 
-@available(iOS 13, macOS 11, *)
 fileprivate extension Image{
     
     func hudModifier() -> some View{
@@ -660,7 +656,6 @@ fileprivate extension Image{
     }
 }
 
-//@available(iOS 13, macOS 11, *)
 public extension View{
     
     /// Return some view w/o frame depends on the condition.
